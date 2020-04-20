@@ -1,0 +1,35 @@
+
+Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+add
+The card:
+334
+The definition of the card:
+34
+The pair ("334":"34") has been added.
+
+Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+add
+The card:
+23
+The definition of the card:
+2
+The pair ("23":"2") has been added.
+
+Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+ask
+How many times to ask?
+2
+Print the definition of "23"
+2
+Correct answer
+
+Print the definition of "334"
+333
+Wrong answer. (The correct one is "34"
+
+
+
+Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+log
+File name:
+log.txt

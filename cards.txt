@@ -1,0 +1,7 @@
+France:Paris
+Russia:Moscow
+Usa:Washington
+Ukrain:Kiev
+Irak:Bagdad
+England:London
+Germain:Berlin
