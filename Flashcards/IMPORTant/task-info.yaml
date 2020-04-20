@@ -537,6 +537,23 @@ files:
     ask
     How many times to ask?
     2
+    Print the definition of "France"
+    ??
+    Wrong answer. (The correct one is "Paris".)
+    Print the definition of "France"
+    ??
+    Wrong answer. (The correct one is "Paris".)
+
+
+
+    Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+    hardest card
+    The hardest card is "France". You have 2 errors answering it.
+
+    Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+    ask
+    How many times to ask?
+    2
     Print the definition of "Russia"
     ??
     Wrong answer. (The correct one is "Moscow".)
@@ -548,7 +565,7 @@ files:
 
     Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
     hardest card
-    The hardest card is "Russia". You have 2 errors answering it.
+    The hardest cards are "France", "Russia". You have 2 errors answering them.
 
     Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
     ask
@@ -574,23 +591,6 @@ files:
     Print the definition of "Russia"
     ??
     Wrong answer. (The correct one is "Moscow".)
-    Print the definition of "Russia"
-    ??
-    Wrong answer. (The correct one is "Moscow".)
-
-
-
-    Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
-    hardest card
-    The hardest card is "Russia". You have 6 errors answering it.
-
-    Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
-    ask
-    How many times to ask?
-    2
-    Print the definition of "Russia"
-    ??
-    Wrong answer. (The correct one is "Moscow".)
     Print the definition of "France"
     ??
     Wrong answer. (The correct one is "Paris".)
@@ -599,7 +599,7 @@ files:
 
     Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
     hardest card
-    The hardest card is "Russia". You have 7 errors answering it.
+    The hardest card is "Russia". You have 5 errors answering it.
 
     Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
     ask
@@ -608,15 +608,15 @@ files:
     Print the definition of "France"
     ??
     Wrong answer. (The correct one is "Paris".)
-    Print the definition of "Russia"
+    Print the definition of "France"
     ??
-    Wrong answer. (The correct one is "Moscow".)
+    Wrong answer. (The correct one is "Paris".)
 
 
 
     Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
     hardest card
-    The hardest card is "Russia". You have 8 errors answering it.
+    The hardest cards are "France", "Russia". You have 5 errors answering them.
 
     Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
     export
@@ -629,6 +629,23 @@ files:
     File name:
     testLog.txt
   learner_created: false
+- name: capitals.txt
+  visible: true
+  text: |
+    France:Paris
+    Russia:Moscow
+  learner_created: true
+- name: capitalsNew.txt
+  visible: true
+  text: |
+    France:Paris
+  learner_created: true
+- name: errors.txt
+  visible: true
+  learner_created: true
+- name: exportFile.txt
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/44/stages/238/implement
-status: Unchecked
+status: Failed
 record: -1

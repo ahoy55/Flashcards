@@ -11,18 +11,21 @@ public class Main {
     static List<String> lines = new ArrayList<>();
     static HashMap<String, Integer> errors = new HashMap<>();
     static List<String> log = new ArrayList<>();
+    static String fileName = "exportFile.txt";
+    static boolean exportFile = false;
 
-    public static void main(String[] args) throws IOException {
-        /*errors.put("France", 4);
-        errors.put("Russia", 2);
-        for(Map.Entry<String, Integer> s : errors.entrySet()) {
-            System.out.println(s);
+    public static void main(String[] args) {
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("-import")) {
+                imp(args[i + 1]);
+                System.out.println("import works(" + args[i + 1] + ")");
+            }
+            if (args[i].equals("-export")) {
+                fileName = args[i + 1];
+                exportFile = true;
+                System.out.println("export works(" + args[i + 1] + ")");
+            }
         }
-        errors.put("France", errors.get("France") + 1);
-
-        for(Map.Entry<String, Integer> s : errors.entrySet()) {
-            System.out.println(s);
-        }*/
         menu();
     }
 
@@ -34,7 +37,7 @@ public class Main {
 
     public static void log(String logLine, boolean isOut) {
         log.add(logLine);
-        if(isOut) System.out.println(logLine);
+        if (isOut) System.out.println(logLine);
     }
 
     public static void log(String logLine) {
@@ -59,9 +62,11 @@ public class Main {
                 StringBuilder str = new StringBuilder("The hardest cards are ");
                 for (int i = 0; i < err.size(); i++) {
                     String s = err.get(i);
-                    str.append("\"").append(s).append("\"");
-                    if (i == err.size() - 1) break;
-                    str.append(", ");
+                    if (cardList.contains(s)) {
+                        str.append("\"").append(s).append("\"");
+                        if (i == err.size() - 1) break;
+                        str.append(", ");
+                    }
                 }
                 str.append(". You have ").append(max).append(" errors answering them.");
                 log(str.toString());
@@ -125,8 +130,9 @@ public class Main {
             log(answer, false);
             String str = defList.get(ran);
             String card = cardList.get(ran);
+            String lines;
             if (str.equals(answer)) {
-                log("Correct answer\n");
+                lines = "Correct answer\n";
             } else {
                 StringBuilder line;
                 line = new StringBuilder(("Wrong answer. (The correct one is \"" + str + "\".)"));
@@ -134,10 +140,11 @@ public class Main {
                     if (s.equals(answer))
                         line.append(", you've just written the definition of \"").append(cardList.get(defList.indexOf(s))).append("\" card.)");
                 }
-                log(line.toString());
-                if(errors.containsKey(card)) errors.put(card, (errors.get(card) + 1));
+                lines = line.toString();
+                if (errors.containsKey(card)) errors.put(card, (errors.get(card) + 1));
                 else errors.put(card, 1);
             }
+            log(lines);
         }
         log("\n");
         menu();
@@ -166,6 +173,24 @@ public class Main {
         expErrors();
     }
 
+    public static void export(String nameFile) {
+        try {
+            FileWriter expFile = new FileWriter(nameFile);
+            for (int i = 0; i < cardList.size(); i++) {
+                String card = cardList.get(i);
+                String def = defList.get(i);
+                expFile.write(card + ":" + def + System.getProperty("line.separator"));
+            }
+            expFile.close();
+            log("Bye bye!");
+            log(cardList.size() + " cards have been saved.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            log("error export");
+        }
+        expErrors();
+    }
+
     public static void doLog() {
         log("File name:");
         Scanner scan = new Scanner(System.in);
@@ -173,7 +198,7 @@ public class Main {
         log(nameFile, false);
         try {
             FileWriter expFile = new FileWriter(nameFile);
-            for(String s : log) {
+            for (String s : log) {
                 expFile.write(s + System.getProperty("line.separator"));
             }
             expFile.close();
@@ -193,6 +218,7 @@ public class Main {
             int i = cardList.indexOf(cardName);
             cardList.remove(i);
             defList.remove(i);
+            errors.remove(cardName);
             log("The card has been removed.");
         } else log("Can't remove \"" + cardName + "\": there is no such card.");
         menu();
@@ -236,7 +262,10 @@ public class Main {
     }
 
     public static void exit() {
-        log("Bye bye!");
+        expErrors();
+        if (exportFile) {
+            export(fileName);
+        } else log("Bye bye!");
         System.exit(0);
     }
 
@@ -266,7 +295,7 @@ public class Main {
                 String[][] errs = new String[str.size()][];
                 for (int i = 0; i < str.size(); i++) {
                     String s = str.get(i);
-                    errs[i] = s.split( ":");
+                    errs[i] = s.split(":");
                 }
                 for (String[] err : errs) {
                     errors.put(err[0], Integer.parseInt(err[1]));
@@ -308,10 +337,30 @@ public class Main {
                     lines.add(scan.nextLine());
                 }
                 writeLines();
+                initErrors();
             } else {
                 log("File not found.");
             }
-            initErrors();
+            menu();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void imp(String nameFile) {
+        lines.clear();
+        try {
+            File impFile = new File(nameFile);
+            if (impFile.exists()) {
+                Scanner scan = new Scanner(impFile);
+                while (scan.hasNextLine()) {
+                    lines.add(scan.nextLine());
+                }
+                writeLines();
+                initErrors();
+            } else {
+                log("File not found.");
+            }
             menu();
         } catch (IOException e) {
             e.printStackTrace();
