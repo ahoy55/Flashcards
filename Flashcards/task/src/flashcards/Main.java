@@ -11,21 +11,29 @@ public class Main {
     static List<String> lines = new ArrayList<>();
     static HashMap<String, Integer> errors = new HashMap<>();
     static List<String> log = new ArrayList<>();
-    static String fileName = "exportFile.txt";
+    static String fileExp = "exp.txt";
+    static String fileImp = "imp.txt";
     static boolean exportFile = false;
+    static boolean importFile = false;
 
     public static void main(String[] args) {
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-import")) {
-                imp(args[i + 1]);
-                System.out.println("import works(" + args[i + 1] + ")");
+                //System.out.println("import works(" + args[i + 1] + ")");
+                fileImp = args[i + 1];
+                importFile = true;
             }
             if (args[i].equals("-export")) {
-                fileName = args[i + 1];
+               // System.out.println("export works(" + args[i + 1] + ")");
+                fileExp = args[i + 1];
                 exportFile = true;
-                System.out.println("export works(" + args[i + 1] + ")");
             }
         }
+        start();
+    }
+
+    public static void start() {
+        if(importFile) imp(fileImp);
         menu();
     }
 
@@ -264,7 +272,7 @@ public class Main {
     public static void exit() {
         expErrors();
         if (exportFile) {
-            export(fileName);
+            export(fileExp);
         } else log("Bye bye!");
         System.exit(0);
     }
@@ -361,7 +369,7 @@ public class Main {
             } else {
                 log("File not found.");
             }
-            menu();
+            //menu();
         } catch (IOException e) {
             e.printStackTrace();
         }
